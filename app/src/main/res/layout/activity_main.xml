@@ -16,6 +16,7 @@
         android:layout_marginRight="18dp"
         android:fontFamily="sans-serif-black"
         android:padding="8dp"
+        android:textColor="#7E3517"
         android:textAlignment="center"
         android:text="Blood Donar"
         android:textSize="45dp" />
@@ -45,7 +46,9 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:textColorLink="@color/black"
-        android:textColor="#fff" />
+        android:textColor="#000"
+        android:backgroundTint="@color/white"
+        />
 
     <Button
         android:layout_width="match_parent"
@@ -55,7 +58,8 @@
         android:text="Become A Donar"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="15dp"
+        android:backgroundTint="#7E3517"/>
 
 
 </LinearLayout>
