@@ -1,12 +1,5 @@
 # Blood-Donar
 
-##	INTRODUCTION
-This section of the document describes the purpose and overview of the system Blood Donar app.
-
-## PURPOSE 
-
-The purpose of this document is to give a detailed development description of the system or functionality, its design phase and implementation. It gives room for the understanding and communication of the app activity concepts and functions amongst the developers or any other interested individual.
-
 ## OVERVIEW
 
 Blood Donar is an android application that helps the user who is in need for their desired blood type around their location. Also, app allows the user to become or register as a Donar for helping other people who needs blood of their type. Moreover, user will be able to search the donor with the help of map with their location. This will be achieved by integrating with google firebase as our database system for storing the donor details and retrieving it and will be using the GPS sensor for knowing the search user current latitude and longitude co-ordinates with the blood donor user that they are looking for with their required blood type. 
