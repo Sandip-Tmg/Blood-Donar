@@ -1,5 +1,6 @@
 package com.example.blood_donar
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,8 +13,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         _searchDonar = findViewById(R.id.searchDonar)
+        _becomeDonar = findViewById(R.id.becomeDonar)
         _searchDonar.setOnClickListener {
-            Log.i("donar", "you clicked search donar button")
+            startSearchDonar()
         }
+        _becomeDonar.setOnClickListener {
+            startBecomeDonar()
+        }
+
+    }
+
+    private fun startSearchDonar(){
+        var intent: Intent = Intent(this, SearchDonar::class.java)
+        startActivity(intent)
+    }
+
+    private fun startBecomeDonar(){
+        var intent : Intent = Intent(this, DonarSignUp::class.java)
+        startActivity(intent)
     }
 }
