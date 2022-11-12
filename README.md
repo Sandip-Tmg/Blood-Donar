@@ -13,8 +13,6 @@ Figma is the design tool used for the development of the Graphical User Interfac
 ##	GUI DESIGN
 The chosen graphical user interface was chosen to ensure easy human interaction with the chatbot. The user enters the location and day of the trip singly to ensure validation and ease of usage.
 
- ![alt text](https://github.com/Sandip-Tmg/Blood-Donar/blob/master/app/src/main/res/drawable/UI%20Design.PNG)
-
 ##	CODING
 ##	PROGRAMMING LANGUAGE (Kotlin) 
 Kotlin is the programming language that will be used for the implementation of the system. 
