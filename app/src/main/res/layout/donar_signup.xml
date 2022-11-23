@@ -67,25 +67,37 @@
         android:layout_marginRight="30dp"
         />
 
-    <EditText
-        android:id="@+id/bloodType"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="Blood Type"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        />
+        android:layout_marginTop="20dp"
+        android:hint="@string/Type"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/blood_type_select"
+            android:inputType="none"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/sex"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="Sex"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        />
+        android:layout_marginTop="20dp"
+        android:hint="@string/sex"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sex_type_select"
+            android:inputType="none"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:layout_width="match_parent"

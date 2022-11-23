@@ -3,6 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android" >
+
     <TextView
         android:id="@+id/text"
         android:layout_marginTop="100dp"
@@ -17,25 +18,37 @@
         android:textSize="45dp"
         android:textColor="#7E3517"/>
 
-    <EditText
-        android:id="@+id/bloodType"
-        android:layout_marginTop="140dp"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Select the blood type you need"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        />
-
-    <EditText
-        android:id="@+id/range"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="Range of Donar You Want to Search For"
+        android:hint="@string/Type"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/blood_type_select"
+            android:inputType="none"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-         />
+        android:layout_marginTop="20dp"
+        android:hint="@string/range"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/range_type_select"
+            android:inputType="none"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:layout_width="match_parent"
