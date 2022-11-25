@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/text"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="18dp"
@@ -20,6 +20,7 @@
 
     <TextView
         android:layout_width="match_parent"
+        android:id="@+id/testText"
         android:layout_height="wrap_content"
         android:text="Please register below"
         android:layout_marginTop="10dp"
@@ -67,6 +68,16 @@
         android:layout_marginRight="30dp"
         />
 
+    <Button
+        android:id="@+id/dateOfBirth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Date of Birth"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        />
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -98,6 +109,8 @@
             android:inputType="none"
             />
     </com.google.android.material.textfield.TextInputLayout>
+
+
 
     <Button
         android:layout_width="match_parent"
