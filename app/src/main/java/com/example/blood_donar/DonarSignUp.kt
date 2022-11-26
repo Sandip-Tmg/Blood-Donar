@@ -1,6 +1,8 @@
 package com.example.blood_donar
 
 import android.app.DatePickerDialog
+import android.content.ContentValues
+import android.content.Intent
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Patterns
@@ -9,22 +11,20 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import androidx.core.text.set
 import java.util.*
 
 class DonarSignUp : AppCompatActivity() {
 
-    var name: EditText?=null
-    var email: EditText?=null
-    var address: EditText?=null
-    var contact: EditText?=null
+    private lateinit var name: EditText
+    private lateinit var email: EditText
+    private lateinit var address: EditText
+    private lateinit var contact: EditText
     private lateinit var dob: Button
-    var bloodTypeSelection: String?=null
-    var sexTypeSelection: String?=null
+    private lateinit var bloodTypeSelection: String
+    private lateinit var sexTypeSelection: String
     var userAgeYear = Calendar.getInstance().get(Calendar.YEAR)
     private lateinit var signUpButton: Button
     var validFields =false
@@ -45,6 +45,7 @@ class DonarSignUp : AppCompatActivity() {
         var month = calender.get(Calendar.MONTH)
         var day = calender.get(Calendar.DAY_OF_MONTH)
 
+        // selection for desired user date of birth
         dob.setOnClickListener {
             val datePick = DatePickerDialog(this,DatePickerDialog.OnDateSetListener { view, myear, mmonth, mday ->
                 userAgeYear = myear
@@ -61,10 +62,9 @@ class DonarSignUp : AppCompatActivity() {
         var bloodAdapter = ArrayAdapter(this,R.layout.item_type,bloodType)
         bloodAutoTextview.setAdapter(bloodAdapter)
         // event to show the toast message of selected option when selecting the option
-        var bloodTypeSelection = ""
         bloodAutoTextview.onItemClickListener = OnItemClickListener { parent, view, position, rowId ->
             var select = parent.getItemAtPosition(position).toString()
-            bloodTypeSelection += select
+            bloodTypeSelection = select
         }
 
         // code for making a dropdown option for sex type
@@ -73,23 +73,51 @@ class DonarSignUp : AppCompatActivity() {
         var sexAdapter = ArrayAdapter(this,R.layout.item_type, sex)
         sexAutoTextView.setAdapter(sexAdapter)
         // event to show the toast message of selected option when selecting the option
-        var sexTypeSelection=""
         sexAutoTextView.onItemClickListener = OnItemClickListener { parent, view, position, rowId ->
             var select = parent.getItemAtPosition(position).toString()
-            sexTypeSelection +=select
+            sexTypeSelection =select
         }
 
-
         signUpButton = findViewById(R.id.signUp)
+
+        // implementing database
+        var databaseHelper = DBHelper(applicationContext)
+        var db = databaseHelper.writableDatabase
+
+        // add event listener to store all the details to the database
         signUpButton.setOnClickListener {
+
             validFields = validateAllFields()
 
             if(validFields){
-                // store data to database
+                val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+                val age = currentYear - userAgeYear
+
+                val latLong = getGeoCodeAddress(address?.text.toString())?.split("\n")
+                val latitude = latLong?.get(0)
+                val longitude = latLong?.get(1)
+
+                // storing data to database
+                var contentValues = ContentValues()
+                contentValues.put("Name", name?.text.toString())
+                contentValues.put("Email", email?.text.toString())
+                contentValues.put("Latitude", latitude)
+                contentValues.put("Longitude", longitude)
+                contentValues.put("Contact", contact?.text.toString())
+                contentValues.put("age", age)
+                contentValues.put("BloodType", bloodTypeSelection)
+                contentValues.put("SexType", sexTypeSelection)
+
+                db.insert("Users",null,contentValues)
+
+                Toast.makeText(applicationContext, "Registration Successful", Toast.LENGTH_SHORT).show()
+                Thread.sleep(2000)
+
+                var intent: Intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
 
             }
         }
-
     }
 
     // function to return the latitude and longitude of the address
@@ -108,6 +136,7 @@ class DonarSignUp : AppCompatActivity() {
 
     // function to validate all the fields and return if all the fields are valid
     private fun validateAllFields(): Boolean{
+
         if(name!!.length()==0){
             name!!.error = "Name is required"
             return false
@@ -132,8 +161,6 @@ class DonarSignUp : AppCompatActivity() {
             Toast.makeText(applicationContext, "You are unable to donate blood", Toast.LENGTH_SHORT).show()
             return false
         }
-
-
 
         return true
     }

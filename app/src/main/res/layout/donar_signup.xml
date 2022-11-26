@@ -36,6 +36,8 @@
         android:hint="Name"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
+        android:padding="12dp"
+        android:background="@drawable/edit_text_border"
         />
 
     <EditText
@@ -46,6 +48,8 @@
         android:hint="Email"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
+        android:padding="12dp"
+        android:background="@drawable/edit_text_border"
         />
 
     <EditText
@@ -56,6 +60,8 @@
         android:hint="Address"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
+        android:padding="12dp"
+        android:background="@drawable/edit_text_border"
         />
 
     <EditText
@@ -66,6 +72,8 @@
         android:hint="Contact"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
+        android:padding="12dp"
+        android:background="@drawable/edit_text_border"
         />
 
     <Button
@@ -76,6 +84,9 @@
         android:hint="Date of Birth"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
+        android:backgroundTint="#fff"
+        android:textAlignment="textStart"
+        android:textColor="#000"
         />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -91,6 +102,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/blood_type_select"
             android:inputType="none"
+            android:padding="12dp"
+            android:background="@drawable/edit_text_border"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,6 +120,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/sex_type_select"
             android:inputType="none"
+            android:padding="12dp"
+            android:background="@drawable/edit_text_border"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
