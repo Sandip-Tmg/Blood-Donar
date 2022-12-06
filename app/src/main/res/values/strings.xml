@@ -2,5 +2,5 @@
     <string name="app_name">Blood_Donar</string>
     <string name="Type">Blood Type</string>
     <string name="sex">Sex</string>
-    <string name="range">Range</string>
+    <string name="range">Range (KM)</string>
 </resources>

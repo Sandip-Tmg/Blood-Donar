@@ -1,5 +1,6 @@
 package com.example.blood_donar
 
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
@@ -16,9 +17,12 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.example.blood_donar.databinding.ActivityMapsBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 
 class ShowLocation : AppCompatActivity(), OnMapReadyCallback {
 
+    private lateinit var currentLatitude: String
+    private lateinit var currentLongitude: String
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     private lateinit var currentLocation: Location
@@ -36,6 +40,7 @@ class ShowLocation : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
+    @SuppressLint("Range")
     private fun getCurrentLocationUser() {
         //here we check permission is granted or not
         //if the permission is not granted, permission is requested
@@ -62,16 +67,14 @@ class ShowLocation : AppCompatActivity(), OnMapReadyCallback {
                 //check if location is null or not because there might be a situation where location is turned off in setting
                 if (location != null) {
                     currentLocation = location
-                    //toast message to display longitude and latitude
-                    Toast.makeText(
-                        applicationContext, currentLocation.latitude.toString() + "" +
-                                currentLocation.longitude.toString(), Toast.LENGTH_LONG
-                    ).show()
+                    currentLatitude = currentLocation.latitude.toString()
+                    currentLongitude = currentLocation.longitude.toString()
 
                     //this function notify when the map is ready to be used.
                     val mapFragment = supportFragmentManager
                         .findFragmentById(R.id.map) as SupportMapFragment
                     mapFragment.getMapAsync(this)
+
                 }
             }
     }
@@ -96,19 +99,51 @@ class ShowLocation : AppCompatActivity(), OnMapReadyCallback {
         val latLng = LatLng(
             currentLocation.latitude,
             currentLocation.longitude
-        ) //this function is triggered when is ready to be used and provide a non null instance of google map
-        val marketOptions = MarkerOptions().position(latLng).title("Current Location")
+        )
+
+        val currentLocationMarker = MarkerOptions().position(latLng).title("Current Location").icon(
+            BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
 
         googleMap?.animateCamera(CameraUpdateFactory.newLatLng(latLng))
         googleMap?.animateCamera(
             CameraUpdateFactory.newLatLngZoom(
                 latLng,
-                15f
+                10.0f
             )
         )
-        //15f represent how much zoomed in map you want when opening this activity
-        //put the red marker on current position on the map
-        googleMap?.addMarker(marketOptions)
+        googleMap?.addMarker(currentLocationMarker)
+
+        // intent to get the bloodType from user selection
+        var blood: String? = intent.getStringExtra("Blood")
+
+        var databaseHelper = DBHelper(applicationContext)
+        var details = databaseHelper.getDetailsWithBloodType(blood)
+
+        var locationArrayList: ArrayList<LatLng> = ArrayList()
+        var allDetailsOfBloodType: ArrayList<DonarModel> = ArrayList()
+        for(det in details){
+            locationArrayList!!.add(LatLng(det.latitude.toDouble(), det.longitude.toDouble()))
+            allDetailsOfBloodType.add(det)
+        }
+
+        if(locationArrayList.size==0){
+            // message display there is no data of user selection of blood and range
+            Toast.makeText(applicationContext, "Sorry couldn't find the donar with in your range", Toast.LENGTH_LONG).show()
+        }else{
+            for(i in locationArrayList!!.indices){
+                googleMap.addMarker(MarkerOptions().position(locationArrayList!![i]).title(allDetailsOfBloodType!![i].name +" "+ allDetailsOfBloodType!![i].email))
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(locationArrayList!![i]))
+                googleMap?.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        latLng,
+                        10.0f
+                    )
+                )
+            }
+        }
+
+
+
     }
 
 }
