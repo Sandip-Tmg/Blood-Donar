@@ -15,7 +15,7 @@ Figma is the design tool used for the development of the Graphical User Interfac
 Kotlin is the programming language that will be used for the implementation of the system. 
 
 ##	Database and Sensor   
-Firebase will be used as our database system and GPS sensor will be used to track the user location.
+SQLite will be used as our database system and GPS sensor will be used to track the user location.
 
 
 
