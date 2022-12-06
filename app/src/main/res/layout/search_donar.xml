@@ -18,6 +18,7 @@
         android:textSize="45dp"
         android:textColor="#7E3517"/>
 
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,34 +32,22 @@
             android:layout_height="wrap_content"
             android:id="@+id/blood_type_select"
             android:inputType="none"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp"
-        android:hint="@string/range"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-        <AutoCompleteTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/range_type_select"
-            android:inputType="none"
+            android:padding="12dp"
+            android:background="@drawable/edit_text_border"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/becomeDonar"
+        android:id="@+id/search"
         android:textColor="#fff"
         android:text="Search"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="15dp"
         android:backgroundTint="#7E3517"/>
+
+
 
 </LinearLayout>

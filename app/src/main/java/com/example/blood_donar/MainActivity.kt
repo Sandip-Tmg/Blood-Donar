@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startSearchDonar(){
-        var intent: Intent = Intent(this, SearchDonar::class.java)
+        var intent: Intent = Intent(this, DonarSearch::class.java)
         startActivity(intent)
     }
 

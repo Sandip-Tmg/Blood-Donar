@@ -13,7 +13,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.set
 import java.util.*
 
 class DonarSignUp : AppCompatActivity() {
@@ -61,11 +60,13 @@ class DonarSignUp : AppCompatActivity() {
         var bloodAutoTextview = findViewById<AutoCompleteTextView>(R.id.blood_type_select)
         var bloodAdapter = ArrayAdapter(this,R.layout.item_type,bloodType)
         bloodAutoTextview.setAdapter(bloodAdapter)
+
         // event to show the toast message of selected option when selecting the option
         bloodAutoTextview.onItemClickListener = OnItemClickListener { parent, view, position, rowId ->
             var select = parent.getItemAtPosition(position).toString()
-            bloodTypeSelection = select
+            bloodTypeSelection =select
         }
+
 
         // code for making a dropdown option for sex type
         val sex = arrayOf("Male","Female","Other")
@@ -145,13 +146,14 @@ class DonarSignUp : AppCompatActivity() {
             email!!.error = "Invalid Email Address"
             return false
         }
-        if(!android.util.Patterns.PHONE.matcher(contact?.text.toString().trim()).matches()){
-            contact!!.error = "Invalid Contact Details"
-            return false
-        }
 
         if(getGeoCodeAddress(address?.text.toString())==null){
             Toast.makeText(applicationContext, "Please type in the correct address", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if(!android.util.Patterns.PHONE.matcher(contact?.text.toString().trim()).matches()){
+            contact!!.error = "Invalid Contact Details"
             return false
         }
 
