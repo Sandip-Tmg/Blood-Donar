@@ -18,13 +18,13 @@ import com.example.blood_donar.databinding.ActivityMapsBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import java.lang.Math.pow
+import com.google.android.gms.maps.model.Marker
 import kotlin.math.*
 
-class ShowLocation : AppCompatActivity(), OnMapReadyCallback {
+class ShowLocation : AppCompatActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
-    private var currentLatitude: Double=0.0
-    private var currentLongitude: Double = 0.0
+    private var currentLatitude: Double = 0.0
+    private var currentLongitude: Double= 0.0
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     private lateinit var currentLocation: Location
@@ -41,7 +41,6 @@ class ShowLocation : AppCompatActivity(), OnMapReadyCallback {
         getCurrentLocationUser()
     }
 
-    @SuppressLint("Range")
     private fun getCurrentLocationUser() {
         //here we check permission is granted or not
         //if the permission is not granted, permission is requested
@@ -102,8 +101,7 @@ class ShowLocation : AppCompatActivity(), OnMapReadyCallback {
             currentLocation.longitude
         )
 
-        val currentLocationMarker = MarkerOptions().position(latLng).title("Current Location").icon(
-            BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+        val currentLocationMarker = MarkerOptions().position(latLng).title("You are here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
 
         googleMap?.animateCamera(CameraUpdateFactory.newLatLng(latLng))
         googleMap?.animateCamera(
@@ -141,7 +139,12 @@ class ShowLocation : AppCompatActivity(), OnMapReadyCallback {
             Toast.makeText(applicationContext, "Sorry couldn't find the donar with in your range", Toast.LENGTH_LONG).show()
         }else{
             for(i in locationArrayList!!.indices){
-                googleMap.addMarker(MarkerOptions().position(locationArrayList!![i]).title(allDetailsOfBloodType!![i].name +" "+ allDetailsOfBloodType!![i].email))
+                googleMap.addMarker(MarkerOptions().position(locationArrayList!![i])
+                    .title(allDetailsOfBloodType!![i].name )
+                    .snippet("Email: "+allDetailsOfBloodType!![i].email+"\n"+
+                            "Contact: "+ allDetailsOfBloodType!![i].contact+"\n"+
+                            "Blood Type: "+ allDetailsOfBloodType!![i].bloodType+"\n"+
+                            "Sex: "+ allDetailsOfBloodType!![i].sexType))
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(locationArrayList!![i]))
                 googleMap?.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(
@@ -151,7 +154,11 @@ class ShowLocation : AppCompatActivity(), OnMapReadyCallback {
                 )
             }
         }
+
+        googleMap.setInfoWindowAdapter(CustomInfoWindowForGoogleMap(this))
+
     }
+
     private fun distanceFromCurrentLocationToOtherLocations(lat1:Double, long1:Double): Double {
 
         val long1 = Math.toRadians(long1)
@@ -167,6 +174,10 @@ class ShowLocation : AppCompatActivity(), OnMapReadyCallback {
         // radius of earth
         val radius = 6371
         return (c*radius)
+    }
+
+    override fun onMarkerClick(p0: Marker): Boolean {
+        TODO("Not yet implemented")
     }
 
 }
